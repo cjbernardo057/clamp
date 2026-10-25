@@ -1,0 +1,84 @@
+body {
+    background-image: url("/images.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    font-family: Arial, sans-serif;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 100vh;
+    margin: 0;
+}
+
+.login-panel {
+    background-color: white;
+    border: 2px solid #5ecbff;
+    border-radius: 14px;
+    padding: 45px 35px;
+    width: 320px;
+
+    box-shadow:
+        0 0 10px rgba(94, 203, 255, 0.8),
+        0 0 25px rgba(94, 203, 255, 0.5);
+}
+
+.links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.links a {
+    color: #8A2BE2;
+    text-decoration: none;
+    font-size: 14px;
+    padding: 0 12px;
+}
+
+.links a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+.divider {
+    width: 1px;
+    height: 18px;
+    background-color: #8A2BE2;
+}
+
+.password-requirements {
+    display: none;
+    font-size: 12px;
+    margin-top: 2px;
+    margin-bottom: 10px;
+}
+
+.requirement {
+    margin: 3px 0;
+}
+
+.requirement.valid {
+    color: #00ff66;
+}
+
+.requirement.invalid {
+    color: #ff3333;
+}
+
+/* Confirm Password - valid */
+#confirmPassword.valid {
+    border-color: #00ff66;
+    box-shadow: 0 0 10px #00ff66;
+}
+
+/* Confirm Password - invalid */
+#confirmPassword.invalid {
+    border-color: #ff3333;
+    box-shadow: 0 0 10px #ff3333;
+}
+

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Forgot Password</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            min-height: 100vh;
+
+            font-family: Arial, sans-serif;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+
+        /* =========================
+           BLURRED BACKGROUND
+        ========================== */
+
+        body::before {
+
+            content: "";
+
+            position: fixed;
+
+            top: -10px;
+            left: -10px;
+
+            width: calc(100% + 20px);
+            height: calc(100% + 20px);
+
+            background-image: url("/static/images.jpg");
+
+            background-size: cover;
+
+            background-position: center;
+
+            background-repeat: no-repeat;
+
+            filter: blur(3px);
+
+            z-index: 0;
+        }
+
+
+        /* =========================
+           DARK OVERLAY
+        ========================== */
+
+        body::after {
+
+            content: "";
+
+            position: fixed;
+
+            inset: 0;
+
+            background: rgba(0, 0, 0, 0.35);
+
+            z-index: 1;
+        }
+
+
+        /* =========================
+           FORGOT PANEL
+        ========================== */
+
+        .forgot-panel {
+
+            position: relative;
+
+            z-index: 2;
+
+            background-color: #ffffff;
+
+            border: 2px solid #5ecbff;
+
+            border-radius: 14px;
+
+            padding: 50px 40px;
+            width: 410px;
+
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+
+            text-align: center;
+
+            animation: boxAppear 0.7s ease-out;
+        }
+
+
+        /* =========================
+           BOX ANIMATION
+        ========================== */
+
+        @keyframes boxAppear {
+
+            0% {
+
+                opacity: 0;
+
+                transform:
+                    translateY(25px)
+                    scale(0.97);
+            }
+
+            100% {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+            }
+
+        }
+
+
+        /* =========================
+           TITLE
+        ========================== */
+
+        .forgot-panel h2 {
+
+            color: #1976d2;
+
+            margin-top: 0;
+
+            margin-bottom: 15px;
+        }
+
+
+        /* =========================
+           DESCRIPTION
+        ========================== */
+
+        .forgot-panel p {
+
+            color: #555555;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+
+            margin-bottom: 25px;
+        }
+
+
+        /* =========================
+           INPUT
+        ========================== */
+
+        .forgot-panel input {
+
+            width: 100%;
+
+            padding: 11px;
+
+            margin: 8px 0;
+
+            background-color: #ffffff;
+
+            color: #222222;
+
+            border: 1px solid #5ecbff;
+
+            border-radius: 6px;
+
+            outline: none;
+
+            transition:
+                border-color 0.3s ease,
+                box-shadow 0.3s ease,
+                transform 0.2s ease;
+        }
+
+
+        .forgot-panel input:focus {
+
+            border-color: #2196f3;
+
+            box-shadow:
+                0 0 6px rgba(94, 203, 255, 0.8),
+                0 0 12px rgba(94, 203, 255, 0.4);
+
+            transform: scale(1.005);
+        }
+
+
+        .forgot-panel input::placeholder {
+
+            color: #777777;
+        }
+
+
+        /* =========================
+           RESET BUTTON
+        ========================== */
+
+        .reset-button {
+
+            width: 100%;
+
+            padding: 11px;
+
+            margin-top: 15px;
+
+            background-color: #2196f3;
+
+            color: #ffffff;
+
+            border: none;
+
+            border-radius: 6px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+
+        .reset-button:hover {
+
+            background-color: #1976d2;
+
+            box-shadow:
+                0 0 8px rgba(94, 203, 255, 0.8),
+                0 0 18px rgba(94, 203, 255, 0.5);
+
+            transform: translateY(-1px);
+        }
+
+
+        /* =========================
+           BACK TO LOGIN
+        ========================== */
+
+        .back-login {
+
+            margin-top: 20px;
+
+            font-size: 14px;
+
+            color: #555555;
+        }
+
+
+        .back-login a {
+
+            color: #1976d2;
+
+            text-decoration: none;
+        }
+
+
+        .back-login a:hover {
+
+            color: #2196f3;
+
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+    <div class="forgot-panel">
+
+        <h2>FORGOT PASSWORD?</h2>
+
+
+        <p>
+            Enter your email address or username
+            and we will help you reset your password.
+        </p>
+
+
+        <input
+            type="text"
+            placeholder="Email or Username"
+        >
+
+
+        <button class="reset-button">
+            Reset Password
+        </button>
+
+
+        <div class="back-login">
+
+            Remember your password?
+
+            <a href="/">
+                Log In
+            </a>
+
+        </div>
+
+    </div>
+
+
+</body>
+</html>

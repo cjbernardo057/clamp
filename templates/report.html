@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CLaMP — Report an Issue</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+
+            background-color: #F4F1FB;
+
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+
+        .report-card {
+            width: 100vw;
+            height: 100vh;
+
+            background-color: #F4F1FB;
+
+            position: relative;
+            overflow: hidden;
+
+            display: grid;
+            grid-template-columns: 1fr 1.15fr;
+
+            box-shadow: none;
+        }
+
+
+        /* =========================
+           BRAND
+        ========================== */
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            position: absolute;
+            top: 40px;
+            left: 70px;
+
+            z-index: 10;
+        }
+
+        .brand-logo {
+            width: 46px;
+            height: 46px;
+
+            object-fit: contain;
+
+            filter: drop-shadow(0 4px 10px rgba(111, 98, 168, 0.25));
+        }
+
+        .brand-name {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+
+            color: #2B1E4C;
+        }
+
+        .brand-name .highlight {
+            color: #6F62A8;
+        }
+
+
+        /* =========================
+           LEFT — FORM
+        ========================== */
+
+        .report-left {
+            padding: 130px 70px 50px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            position: relative;
+            z-index: 5;
+
+            overflow-y: auto;
+
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .report-left::-webkit-scrollbar {
+            display: none;
+        }
+
+
+        .report-left h1 {
+            font-size: 32px;
+            font-weight: 700;
+
+            color: #2B1E4C;
+
+            margin-bottom: 10px;
+            line-height: 1.15;
+
+            letter-spacing: -0.5px;
+        }
+
+
+        .report-left .subtitle {
+            font-size: 13px;
+
+            color: #8B84A0;
+
+            margin-bottom: 28px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =========================
+           FORM GROUP
+        ========================== */
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+
+        .form-group label {
+            display: block;
+
+            font-size: 12px;
+            font-weight: 600;
+
+            color: #2B1E4C;
+
+            margin-bottom: 7px;
+        }
+
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+
+            padding: 15px 20px;
+
+            background-color: #FFFFFF;
+
+            border: 1.5px solid #ECE5FA;
+
+            border-radius: 50px;
+
+            font-size: 13px;
+
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+            color: #2B1E4C;
+
+            outline: none;
+
+            transition:
+                border-color 0.2s,
+                box-shadow 0.2s,
+                background-color 0.2s;
+        }
+
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #A79FBC;
+        }
+
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #6F62A8;
+
+            box-shadow:
+                0 0 0 4px rgba(111, 98, 168, 0.15);
+        }
+
+
+        /* =========================
+           SELECT BOX ARROW
+        ========================== */
+
+        .form-group select {
+            appearance: none;
+            cursor: pointer;
+
+            background-image:
+                linear-gradient(45deg, transparent 50%, #6F62A8 50%),
+                linear-gradient(135deg, #6F62A8 50%, transparent 50%);
+
+            background-position:
+                calc(100% - 22px) 21px,
+                calc(100% - 16px) 21px;
+
+            background-size:
+                6px 6px,
+                6px 6px;
+
+            background-repeat: no-repeat;
+
+            padding-right: 45px;
+        }
+
+
+        /* =========================
+           TEXTAREA
+        ========================== */
+
+        .form-group textarea {
+            min-height: 100px;
+
+            border-radius: 20px;
+
+            resize: vertical;
+
+            line-height: 1.5;
+        }
+
+
+        /* =========================
+           SUBMIT BUTTON
+        ========================== */
+
+        .submit-button {
+            width: 100%;
+
+            padding: 16px;
+
+            margin-top: 8px;
+
+            background: linear-gradient(135deg, #8478B8 0%, #6F62A8 100%);
+
+            color: #FFFFFF;
+
+            border: none;
+            border-radius: 50px;
+
+            font-size: 15px;
+            font-weight: 600;
+
+            cursor: pointer;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+
+            transition: 0.25s;
+
+            box-shadow:
+                0 12px 25px rgba(111, 98, 168, 0.35);
+        }
+
+
+        .submit-button:hover {
+            background: linear-gradient(135deg, #6F62A8 0%, #5A4F8F 100%);
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 16px 30px rgba(111, 98, 168, 0.45);
+        }
+
+
+        .submit-button:active {
+            transform: translateY(0);
+        }
+
+
+        /* =========================
+           MESSAGES
+        ========================== */
+
+        .message {
+            display: none;
+
+            padding: 14px;
+
+            margin-bottom: 20px;
+
+            border-radius: 50px;
+
+            text-align: center;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            transition: opacity 0.3s ease;
+        }
+
+
+        .message.success {
+            display: block;
+
+            background-color: #E7F8EF;
+
+            color: #239653;
+
+            border: 1.5px solid #A4E6C1;
+        }
+
+
+        .message.error {
+            display: block;
+
+            background-color: #FFE7EB;
+
+            color: #D93652;
+
+            border: 1.5px solid #FFB6C2;
+        }
+
+
+        /* =========================
+           RIGHT — SVG + PC
+        ========================== */
+
+        .report-right {
+            position: relative;
+
+            overflow: hidden;
+        }
+
+
+        .report-right .curve-svg {
+            position: absolute;
+
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 100%;
+
+            z-index: 1;
+        }
+
+
+        .report-right .pc-image {
+            position: absolute;
+
+            right: 0%;
+            bottom: 8%;
+
+            width: 100%;
+            max-width: 720px;
+
+            z-index: 2;
+
+            filter:
+                drop-shadow(0 30px 50px rgba(40, 20, 90, 0.35));
+        }
+
+
+        /* =========================
+           ENTRANCE ANIMATIONS
+        ========================== */
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeUpPC {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        /* --- Apply animations --- */
+
+        .brand {
+            animation: slideInLeft 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both;
+        }
+
+        .report-left h1 {
+            animation: slideUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+        }
+
+        .report-left .subtitle {
+            animation: slideUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.22s both;
+        }
+
+        .report-left #message {
+            animation: slideUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.28s both;
+        }
+
+        .report-left .form-name {
+            animation: slideUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.32s both;
+        }
+
+        .report-left .form-room {
+            animation: slideUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.39s both;
+        }
+
+        .report-left .form-pc {
+            animation: slideUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.46s both;
+        }
+
+        .report-left .form-description {
+            animation: slideUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.53s both;
+        }
+
+        .report-left .submit-button {
+            animation: slideUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.62s both;
+        }
+
+        .report-right {
+            animation: slideInRight 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+        }
+
+        .report-right .pc-image {
+            animation: fadeUpPC 1s cubic-bezier(0.22, 1, 0.36, 1) 0.35s both;
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================== */
+
+        @media (max-width: 950px) {
+
+            .report-card {
+                grid-template-columns: 1fr;
+            }
+
+            .report-right {
+                display: none;
+            }
+
+            .report-left {
+                padding: 110px 40px 50px;
+            }
+
+            .brand {
+                top: 25px;
+                left: 30px;
+            }
+
+        }
+
+
+        @media (max-width: 500px) {
+
+            .report-left {
+                padding: 100px 25px 40px;
+            }
+
+            .report-left h1 {
+                font-size: 24px;
+            }
+
+            .brand-logo { width: 38px; height: 38px; }
+
+            .brand-name { font-size: 20px; }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+    <div class="report-card">
+
+
+        <!-- =========================
+             LEFT — FORM
+        ========================== -->
+
+        <div class="report-left">
+
+            <!-- BRAND -->
+
+            <div class="brand">
+
+                <img
+                    src="/static/clamp-logo.png"
+                    alt="CLaMP"
+                    class="brand-logo"
+                >
+
+                <span class="brand-name">
+                    CL<span class="highlight">a</span>MP
+                </span>
+
+            </div>
+
+
+            <h1>
+                Report an Issue
+            </h1>
+
+            <p class="subtitle">
+                Report a problem with a computer in the laboratory.
+            </p>
+
+
+            <div id="message" class="message"></div>
+
+
+            <form id="reportForm">
+
+
+                <!-- NAME -->
+
+                <div class="form-group form-name">
+
+                    <label for="name">
+                        Your Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        placeholder="Enter your name"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- ROOM -->
+
+                <div class="form-group form-room">
+
+                    <label for="room">
+                        Computer Lab
+                    </label>
+
+                    <select id="room" required>
+
+                        <option value="">
+                            Select Room
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- COMPUTER -->
+
+                <div class="form-group form-pc">
+
+                    <label for="pc">
+                        Computer
+                    </label>
+
+                    <select id="pc" required>
+
+                        <option value="">
+                            Select Computer
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- DESCRIPTION -->
+
+                <div class="form-group form-description">
+
+                    <label for="description">
+                        Issue Description
+                    </label>
+
+                    <textarea
+                        id="description"
+                        placeholder="Describe the problem..."
+                        required
+                    ></textarea>
+
+                </div>
+
+
+                <!-- SUBMIT -->
+
+                <button
+                    type="submit"
+                    class="submit-button"
+                >
+                    Submit Report
+                </button>
+
+
+            </form>
+
+        </div>
+
+
+        <!-- =========================
+             RIGHT — SVG + PC IMAGE
+        ========================== -->
+
+        <div class="report-right">
+
+            <svg
+                class="curve-svg"
+                viewBox="0 0 660 640"
+                preserveAspectRatio="none"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+
+                <defs>
+
+                    <linearGradient
+                        id="purpleGrad"
+                        x1="0%"
+                        y1="0%"
+                        x2="60%"
+                        y2="100%"
+                    >
+                        <stop offset="0%"   stop-color="#8478B8" />
+                        <stop offset="50%"  stop-color="#6F62A8" />
+                        <stop offset="100%" stop-color="#5A4F8F" />
+                    </linearGradient>
+
+                    <linearGradient
+                        id="lavenderGrad"
+                        x1="0%"
+                        y1="0%"
+                        x2="0%"
+                        y2="100%"
+                    >
+                        <stop offset="0%"   stop-color="#DCD6EC" />
+                        <stop offset="50%"  stop-color="#CEC6E3" />
+                        <stop offset="100%" stop-color="#C0B7DA" />
+                    </linearGradient>
+
+                </defs>
+
+
+                <path
+                    d="M 100,0
+                       C 100,120 20,240 20,320
+                       C 20,400 100,520 100,640
+                       L 260,640
+                       C 260,520 180,400 180,320
+                       C 180,240 260,120 260,0
+                       Z"
+                    fill="url(#lavenderGrad)"
+                />
+
+                <path
+                    d="M 260,0
+                       C 260,120 180,240 180,320
+                       C 180,400 260,520 260,640
+                       L 660,640
+                       L 660,0
+                       Z"
+                    fill="url(#purpleGrad)"
+                />
+
+            </svg>
+
+
+            <img
+                src="/static/pc-setup.png"
+                alt=""
+                class="pc-image"
+            >
+
+        </div>
+
+
+    </div>
+
+
+
+    <script>
+
+        // =====================================
+        // STORE COMPUTERS FROM DATABASE
+        // =====================================
+
+        let computers = [];
+
+
+        // =====================================
+        // SHOW MESSAGE (auto-hides after 4s)
+        // =====================================
+
+        let messageTimer = null;
+
+        function showMessage(message, type) {
+
+            const messageBox =
+                document.getElementById("message");
+
+            messageBox.textContent = message;
+
+            messageBox.className = "message " + type;
+
+
+            /* Clear any existing timer so a new
+               message doesn't get cut off early */
+
+            if (messageTimer) {
+
+                clearTimeout(messageTimer);
+
+            }
+
+
+            /* Auto-hide after 4 seconds */
+
+            messageTimer = setTimeout(
+
+                function () {
+
+                    messageBox.textContent = "";
+
+                    messageBox.className = "message";
+
+                    messageTimer = null;
+
+                },
+
+                4000
+            );
+
+        }
+
+
+        // =====================================
+        // LOAD COMPUTERS
+        // =====================================
+
+        async function loadComputers() {
+
+            try {
+
+                const response =
+                    await fetch("/api/computers");
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Unable to load computers."
+                    );
+
+                }
+
+                computers = await response.json();
+
+                loadRooms();
+
+            }
+            catch (error) {
+
+                console.error(error);
+
+                showMessage(
+                    "Unable to load computers.",
+                    "error"
+                );
+
+            }
+
+        }
+
+
+        // =====================================
+        // LOAD ROOMS
+        // =====================================
+
+        function loadRooms() {
+
+            const roomSelect =
+                document.getElementById("room");
+
+            roomSelect.innerHTML = `
+                <option value="">
+                    Select Room
+                </option>
+            `;
+
+
+            const rooms = [];
+
+
+            computers.forEach(function(computer) {
+
+                if (
+                    computer.comlab &&
+                    !rooms.includes(computer.comlab)
+                ) {
+
+                    rooms.push(computer.comlab);
+
+                }
+
+            });
+
+
+            rooms.forEach(function(room) {
+
+                const option =
+                    document.createElement("option");
+
+                option.value = room;
+
+                option.textContent = room;
+
+                roomSelect.appendChild(option);
+
+            });
+
+        }
+
+
+        // =====================================
+        // LOAD PCS BASED ON ROOM
+        // =====================================
+
+        function loadComputersByRoom() {
+
+            const room =
+                document.getElementById("room").value;
+
+            const pcSelect =
+                document.getElementById("pc");
+
+
+            pcSelect.innerHTML = `
+                <option value="">
+                    Select Computer
+                </option>
+            `;
+
+
+            if (!room) return;
+
+
+            const roomComputers =
+                computers.filter(function(computer) {
+
+                    return computer.comlab === room;
+
+                });
+
+
+            roomComputers.forEach(function(computer) {
+
+                const option =
+                    document.createElement("option");
+
+                option.value = computer.computer_name;
+
+                option.textContent = computer.computer_name;
+
+                pcSelect.appendChild(option);
+
+            });
+
+        }
+
+
+        // =====================================
+        // SUBMIT REPORT
+        // =====================================
+
+        async function submitReport(event) {
+
+            event.preventDefault();
+
+
+            const reportedBy =
+                document.getElementById("name").value.trim();
+
+            const room =
+                document.getElementById("room").value;
+
+            const computer =
+                document.getElementById("pc").value;
+
+            const description =
+                document.getElementById("description").value.trim();
+
+
+            if (
+                !reportedBy ||
+                !room ||
+                !computer ||
+                !description
+            ) {
+
+                showMessage(
+                    "Please fill in all fields.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            try {
+
+                const response =
+                    await fetch("/api/report-issue", {
+
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+
+                        body: JSON.stringify({
+
+                            reported_by: reportedBy,
+                            comlab: room,
+                            computer_name: computer,
+                            description: description
+
+                        })
+
+                    });
+
+
+                const result = await response.json();
+
+
+                if (result.success) {
+
+                    showMessage(result.message, "success");
+
+
+                    document.getElementById("name").value = "";
+
+                    document.getElementById("room").value = "";
+
+                    document.getElementById("pc").innerHTML = `
+                        <option value="">
+                            Select Computer
+                        </option>
+                    `;
+
+                    document.getElementById("description").value = "";
+
+
+                    await loadComputers();
+
+                }
+                else {
+
+                    showMessage(result.message, "error");
+
+                }
+
+            }
+            catch (error) {
+
+                console.error("Report Error:", error);
+
+                showMessage(
+                    "Unable to submit report.",
+                    "error"
+                );
+
+            }
+
+        }
+
+
+        // =====================================
+        // ROOM CHANGE
+        // =====================================
+
+        document.getElementById("room")
+            .addEventListener(
+                "change",
+                loadComputersByRoom
+            );
+
+
+        // =====================================
+        // FORM SUBMISSION
+        // =====================================
+
+        document.getElementById("reportForm")
+            .addEventListener(
+                "submit",
+                submitReport
+            );
+
+
+        // =====================================
+        // START
+        // =====================================
+
+        loadComputers();
+
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Terms of Use</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 40px 20px;
+            font-family: Arial, sans-serif;
+            color: #333333;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* BLURRED BACKGROUND */
+        body::before {
+            content: "";
+            position: fixed;
+            top: -10px;
+            left: -10px;
+            width: calc(100% + 20px);
+            height: calc(100% + 20px);
+
+            background-image: url("/static/images.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+
+            filter: blur(3px);
+
+            z-index: 0;
+        }
+
+        /* DARK OVERLAY */
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+
+            background: rgba(0, 0, 0, 0.35);
+
+            z-index: 1;
+        }
+
+        /* TERMS BOX */
+        .terms-panel {
+            position: relative;
+            z-index: 2;
+
+            max-width: 800px;
+            margin: auto;
+
+            background-color: #ffffff;
+
+            border: 2px solid #5ecbff;
+            border-radius: 14px;
+
+            padding: 35px;
+
+            /* NO BLUE GLOW */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+
+            animation: boxAppear 0.7s ease-out;
+        }
+
+        /* PANEL ANIMATION */
+        @keyframes boxAppear {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* MAIN TITLE */
+        h1 {
+            text-align: center;
+            color: #1976d2;
+            margin-top: 0;
+            margin-bottom: 30px;
+        }
+
+        /* SECTION HEADINGS */
+        h2 {
+            color: #1976d2;
+            margin-top: 25px;
+            font-size: 20px;
+        }
+
+        /* PARAGRAPHS */
+        p {
+            color: #555555;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        /* LISTS */
+        ul {
+            color: #555555;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* AGREEMENT NOTICE */
+        .notice {
+            border-left: 3px solid #5ecbff;
+            padding-left: 15px;
+            margin-top: 20px;
+        }
+
+        /* BACK BUTTON */
+        .back-button {
+            display: block;
+
+            width: 200px;
+
+            margin: 30px auto 0;
+
+            padding: 11px;
+
+            text-align: center;
+
+            background-color: #2196f3;
+            color: #ffffff;
+
+            text-decoration: none;
+
+            border-radius: 7px;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+
+            box-shadow: 0 0 8px rgba(33, 150, 243, 0.4);
+        }
+
+        .back-button:hover {
+            background-color: #1976d2;
+
+            box-shadow:
+                0 0 8px rgba(33, 150, 243, 0.6),
+                0 0 15px rgba(33, 150, 243, 0.3);
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="terms-panel">
+
+        <h1>TERMS OF USE</h1>
+
+        <p>
+            Welcome to the PC Management System. By creating an account
+            and using this system, you agree to follow the terms and
+            conditions stated below. These terms are designed to promote
+            proper, secure, and responsible use of the system.
+        </p>
+
+
+        <h2>1. Acceptance of Terms</h2>
+
+        <p>
+            By accessing or using the PC Management System, the user
+            acknowledges that they have read, understood, and agreed to
+            these Terms of Use. If the user does not agree with these
+            terms, they should not use the system.
+        </p>
+
+
+        <h2>2. User Account</h2>
+
+        <ul>
+            <li>Users must provide accurate information when creating an account.</li>
+            <li>Users are responsible for keeping their account information secure.</li>
+            <li>Users should not share their username or password with unauthorized persons.</li>
+            <li>Each user should use only their own account.</li>
+        </ul>
+
+
+        <h2>3. Proper Use of the System</h2>
+
+        <p>
+            The PC Management System must only be used for its intended
+            purpose. Users are expected to use the system responsibly
+            and follow the rules provided by the administrator or
+            organization.
+        </p>
+
+        <ul>
+            <li>Do not intentionally damage or interfere with the system.</li>
+            <li>Do not attempt to access information without permission.</li>
+            <li>Do not modify system records without authorization.</li>
+            <li>Do not use the system for illegal or unauthorized activities.</li>
+        </ul>
+
+
+        <h2>4. Computer Usage</h2>
+
+        <p>
+            Users must use the computers and other equipment responsibly.
+            Users should avoid changing system settings, installing
+            unauthorized software, or performing actions that may affect
+            the normal operation of the computers.
+        </p>
+
+
+        <h2>5. Data and Records</h2>
+
+        <ul>
+            <li>Users must provide correct information when required.</li>
+            <li>System records should not be intentionally falsified.</li>
+            <li>Users must not access another user's private information.</li>
+            <li>Records should only be changed by authorized users.</li>
+        </ul>
+
+
+        <h2>6. Privacy and Security</h2>
+
+        <p>
+            User information and system records should be handled
+            responsibly. Users must not attempt to obtain, copy,
+            disclose, or misuse information belonging to other users.
+            The system administrator may apply appropriate security
+            measures to protect system data.
+        </p>
+
+
+        <h2>7. Password Security</h2>
+
+        <ul>
+            <li>Users should create a secure password.</li>
+            <li>Users should not share their password with others.</li>
+            <li>Users should log out when finished using the system.</li>
+            <li>Users should immediately inform the administrator if they believe their account has been accessed without permission.</li>
+        </ul>
+
+
+        <h2>8. System Availability</h2>
+
+        <p>
+            The availability of the PC Management System may depend on
+            computer equipment, network connections, maintenance, and
+            other technical conditions. The administrator may temporarily
+            restrict access when maintenance or system improvements are
+            necessary.
+        </p>
+
+
+        <h2>9. Prohibited Activities</h2>
+
+        <p>
+            The following activities are not allowed:
+        </p>
+
+        <ul>
+            <li>Unauthorized access to another user's account.</li>
+            <li>Attempting to bypass system security.</li>
+            <li>Deleting or changing records without permission.</li>
+            <li>Installing unauthorized programs or software.</li>
+            <li>Using the system to damage computers or network resources.</li>
+            <li>Using another person's account without authorization.</li>
+        </ul>
+
+
+        <h2>10. Administrator Responsibilities</h2>
+
+        <p>
+            The system administrator is responsible for managing user
+            accounts, maintaining system records, monitoring system
+            operation, and applying appropriate rules for system use.
+            The administrator may restrict or suspend access when
+            necessary to protect the system.
+        </p>
+
+
+        <h2>11. User Responsibility</h2>
+
+        <p>
+            Users are responsible for their actions while using the
+            PC Management System. Any unauthorized activity, misuse of
+            accounts, or violation of these terms may result in the
+            restriction or removal of system access according to the
+            organization's rules.
+        </p>
+
+
+        <h2>12. Changes to the Terms</h2>
+
+        <p>
+            These Terms of Use may be updated when necessary to improve
+            system security, functionality, or administration. Users
+            are encouraged to review the terms whenever changes are
+            announced.
+        </p>
+
+
+        <h2>13. Agreement</h2>
+
+        <div class="notice">
+
+            <p>
+                By checking the "I agree to the Terms of Use" box during
+                account creation, the user confirms that they have read
+                and understood these Terms of Use and agree to follow
+                the rules for proper and responsible use of the
+                PC Management System.
+            </p>
+
+        </div>
+
+
+        <a href="/create" class="back-button">
+            Back to Create Account
+        </a>
+
+    </div>
+
+</body>
+
+</html>
