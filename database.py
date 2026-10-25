@@ -1,33 +1,64 @@
-import sqlite3
 import os
+import sqlite3
 
+try:
+    import psycopg2
+    from psycopg2.extras import DictCursor
+except ImportError:
+    psycopg2 = None
 
-DATABASE = os.path.join(
-    "/var/data", 
-    "pc_management.db"
-) if os.path.exists("/var/data") else os.path.join(
-    os.path.dirname(os.path.abspath(__file__)),
-    "pc_management.db"
-)
+DATABASE_URL = os.environ.get("DATABASE_URL")
 
-    
+class DBWrapper:
+    def __init__(self, conn):
+        self.conn = conn
+        self.is_postgres = DATABASE_URL is not None
+
+    def execute(self, query, params=()):
+        if self.is_postgres:
+            # PostgreSQL uses %s instead of ?
+            query = query.replace("?", "%s")
+            
+            # Convert INSERT to use RETURNING id if needed
+            cursor = self.conn.cursor()
+            cursor.execute(query, params)
+            return cursor
+        else:
+            return self.conn.execute(query, params)
+
+    def commit(self):
+        self.conn.commit()
+
+    def rollback(self):
+        self.conn.rollback()
+
+    def close(self):
+        self.conn.close()
+
 def get_db():
-    connection = sqlite3.connect(DATABASE)
-    connection.row_factory = sqlite3.Row
-    return connection
-
+    if DATABASE_URL:
+        # Render PostgreSQL connection
+        conn = psycopg2.connect(DATABASE_URL, cursor_factory=DictCursor)
+        return DBWrapper(conn)
+    else:
+        # Local SQLite connection
+        db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "pc_management.db")
+        conn = sqlite3.connect(db_path)
+        conn.row_factory = sqlite3.Row
+        return DBWrapper(conn)
 
 def init_db():
-
     connection = get_db()
+    
+    # We need to use SERIAL instead of AUTOINCREMENT for PostgreSQL
+    id_type = "SERIAL PRIMARY KEY" if DATABASE_URL else "INTEGER PRIMARY KEY AUTOINCREMENT"
 
     # =========================
     # COMPUTERS TABLE
     # =========================
-
-    connection.execute("""
+    connection.execute(f"""
         CREATE TABLE IF NOT EXISTS computers (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id {id_type},
             computer_name TEXT NOT NULL,
             comlab TEXT NOT NULL,
             status TEXT NOT NULL,
@@ -46,50 +77,12 @@ def init_db():
         )
     """)
 
-    # Add missing columns if the database was created using
-    # an older version of the system.
-
-    computer_columns = connection.execute(
-        "PRAGMA table_info(computers)"
-    ).fetchall()
-
-    computer_column_names = [
-        column["name"] for column in computer_columns
-    ]
-
-    computer_new_columns = {
-        "processor": "TEXT",
-        "motherboard": "TEXT",
-        "ram": "TEXT",
-        "ram_slots": "INTEGER DEFAULT 1",
-        "storage": "TEXT",
-        "gpu": "TEXT",
-        "psu": "TEXT",
-        "cooling": "TEXT",
-        "computer_case": "TEXT",
-        "monitor": "TEXT",
-        "keyboard": "TEXT",
-        "mouse": "TEXT"
-    }
-
-    for column_name, column_type in computer_new_columns.items():
-
-        if column_name not in computer_column_names:
-
-            connection.execute(
-                f"""
-                ALTER TABLE computers
-                ADD COLUMN {column_name} {column_type}
-                """
-            )
-
     # =========================
     # ISSUE REPORTS TABLE
     # =========================
-
-    connection.execute("""
+    connection.execute(f"""
         CREATE TABLE IF NOT EXISTS issue_reports (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id {id_type},
             reported_by TEXT NOT NULL,
             comlab TEXT NOT NULL,
             computer_name TEXT NOT NULL,
@@ -99,49 +92,12 @@ def init_db():
         )
     """)
 
-
-    # Add missing columns to old issue_reports table.
-
-    report_columns = connection.execute(
-        "PRAGMA table_info(issue_reports)"
-    ).fetchall()
-
-    report_column_names = [
-        column["name"] for column in report_columns
-    ]
-
-    if "reported_by" not in report_column_names:
-
-        connection.execute("""
-            ALTER TABLE issue_reports
-            ADD COLUMN reported_by TEXT DEFAULT ''
-        """)
-
-    if "comlab" not in report_column_names:
-
-        connection.execute("""
-            ALTER TABLE issue_reports
-            ADD COLUMN comlab TEXT DEFAULT ''
-        """)
-
-    # If the database was created before created_at was
-    # introduced, add it now (existing rows get NULL,
-    # new rows get CURRENT_TIMESTAMP).
-
-    if "created_at" not in report_column_names:
-
-        connection.execute("""
-            ALTER TABLE issue_reports
-            ADD COLUMN created_at TIMESTAMP
-        """)
-
     # =========================
     # ACCOUNTS TABLE
     # =========================
-
-    connection.execute("""
+    connection.execute(f"""
         CREATE TABLE IF NOT EXISTS accounts (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id {id_type},
             firstname TEXT NOT NULL,
             lastname TEXT NOT NULL,
             username TEXT NOT NULL UNIQUE,
@@ -153,28 +109,24 @@ def init_db():
     # =========================
     # ISSUE RESOLUTIONS TABLE
     # =========================
-
-    connection.execute(""" 
+    connection.execute(f"""
         CREATE TABLE IF NOT EXISTS issue_resolutions (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id {id_type},
             report_id INTEGER NOT NULL,
             action_taken TEXT NOT NULL,
             status_changed_to TEXT,
             resolved_by TEXT,
             resolved_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY (report_id)
-                REFERENCES issue_reports(id)
-                ON DELETE CASCADE
+            FOREIGN KEY (report_id) REFERENCES issue_reports(id) ON DELETE CASCADE
         )
     """)
-
-        # =========================
+    
+    # =========================
     # ACTIVITY LOGS TABLE
     # =========================
-
-    connection.execute("""
+    connection.execute(f"""
         CREATE TABLE IF NOT EXISTS activity_logs (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id {id_type},
             username TEXT NOT NULL,
             action TEXT NOT NULL,
             computer_name TEXT,
